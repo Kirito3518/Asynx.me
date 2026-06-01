@@ -12,7 +12,7 @@ export function GET() {
       (post) =>
         `<item>
           <title>${post.metadata.title}</title>
-          <link>${SITE_INFO.url}/blog/${post.slug}</link>
+          <link>${SITE_INFO.url}/projects/${post.slug}</link>
           <description>${post.metadata.description || ""}</description>
           <pubDate>${new Date(post.metadata.createdAt).toISOString()}</pubDate>
         </item>`

@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 export function PostItem({ post }: { post: Doc }) {
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={`/projects/${post.slug}`}
       className={cn(
         "group flex flex-col gap-2 p-2 transition-[background-color] ease-out hover:bg-accent-muted",
         "max-sm:screen-line-top max-sm:screen-line-bottom",

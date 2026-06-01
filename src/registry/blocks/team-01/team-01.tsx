@@ -55,7 +55,7 @@ const CARDS = [
     avatar: "https://unavatar.io/x/aaronmahlke",
   },
   {
-    name: "Chánh Đại",
+    name: "Asynx",
     handle: "@iamncdai",
     avatar: "https://unavatar.io/x/iamncdai",
   },

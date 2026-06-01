@@ -21,8 +21,8 @@ import { LLMCopyButtonWithViewOptions } from "@/features/blog/components/post-pa
 import { PostShareMenu } from "@/features/blog/components/post-share-menu"
 import {
   findNeighbour,
+  getAllDocs,
   getDocBySlug,
-  getDocsByCategory,
 } from "@/features/doc/data/documents"
 import type { Doc } from "@/features/doc/types/document"
 import { USER } from "@/features/portfolio/data/user"
@@ -33,23 +33,23 @@ export const dynamic = "force-static"
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const docs = getDocsByCategory("components")
+  const docs = getAllDocs()
   return docs.map((doc) => ({ slug: doc.slug }))
 }
 
 export async function generateMetadata({
   params,
-}: PageProps<"/components/[slug]">): Promise<Metadata> {
+}: PageProps<"/projects/[slug]">): Promise<Metadata> {
   const slug = (await params).slug
   const doc = getDocBySlug(slug)
 
-  if (!doc || doc.metadata.category !== "components") {
+  if (!doc) {
     return notFound()
   }
 
   const { title, description, image, createdAt, updatedAt } = doc.metadata
 
-  const postUrl = `/components/${doc.slug}`
+  const postUrl = getDocUrl(doc)
   const ogImage =
     image ||
     `/og/simple?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`
@@ -90,7 +90,7 @@ function getPageJsonLd(doc: Doc): WithContext<PageSchema> {
     image:
       doc.metadata.image ||
       `/og/simple?title=${encodeURIComponent(doc.metadata.title)}&description=${encodeURIComponent(doc.metadata.description)}`,
-    url: `${SITE_INFO.url}/components/${doc.slug}`,
+    url: `${SITE_INFO.url}${getDocUrl(doc)}`,
     datePublished: new Date(doc.metadata.createdAt).toISOString(),
     dateModified: new Date(doc.metadata.updatedAt).toISOString(),
     author: {
@@ -102,9 +102,7 @@ function getPageJsonLd(doc: Doc): WithContext<PageSchema> {
   }
 }
 
-export default async function Page({
-  params,
-}: PageProps<"/components/[slug]">) {
+export default async function Page({ params }: PageProps<"/projects/[slug]">) {
   const slug = (await params).slug
   const doc = getDocBySlug(slug)
 
@@ -112,19 +110,9 @@ export default async function Page({
     notFound()
   }
 
-  if (doc.metadata.category !== "components") {
-    notFound()
-  }
-
   const toc = getTableOfContents(doc.content)
 
-  const allDocs = getDocsByCategory("components")
-    .slice()
-    .sort((a, b) =>
-      a.metadata.title.localeCompare(b.metadata.title, "en", {
-        sensitivity: "base",
-      })
-    )
+  const allDocs = getAllDocs()
   const { previous, next } = findNeighbour(allDocs, slug)
 
   return (
@@ -137,8 +125,8 @@ export default async function Page({
       />
 
       <PostKeyboardShortcuts
-        previous={previous ? `/components/${previous.slug}` : null}
-        next={next ? `/components/${next.slug}` : null}
+        previous={previous ? `/projects/${previous.slug}` : null}
+        next={next ? `/projects/${next.slug}` : null}
       />
 
       <div className="flex items-center justify-between p-2 pl-4">
@@ -148,22 +136,19 @@ export default async function Page({
           size="sm"
           asChild
         >
-          <Link href="/components">
+          <Link href="/projects">
             <ArrowLeftIcon />
-            Components
+            Projects
           </Link>
         </Button>
 
         <div className="flex items-center gap-2">
           <LLMCopyButtonWithViewOptions
-            markdownUrl={`/components/${doc.slug}.mdx`}
-            isComponent
+            markdownUrl={`${getDocUrl(doc)}.mdx`}
+            isComponent={doc.metadata.category === "components"}
           />
 
-          <PostShareMenu
-            title={doc.metadata.title}
-            url={`/components/${doc.slug}`}
-          />
+          <PostShareMenu title={doc.metadata.title} url={getDocUrl(doc)} />
 
           {previous && (
             <Tooltip>
@@ -176,8 +161,8 @@ export default async function Page({
                     asChild
                   >
                     <Link
-                      href={`/components/${previous.slug}`}
-                      aria-label="Previous Component"
+                      href={`/projects/${previous.slug}`}
+                      aria-label="Previous Project"
                     >
                       <ArrowLeftIcon />
                     </Link>
@@ -186,7 +171,7 @@ export default async function Page({
               />
               <TooltipContent className="pr-2 pl-3">
                 <div className="flex items-center gap-3">
-                  Previous Component
+                  Previous Project
                   <Kbd>
                     <ArrowLeftIcon />
                   </Kbd>
@@ -205,10 +190,7 @@ export default async function Page({
                     size="icon-sm"
                     asChild
                   >
-                    <Link
-                      href={`/components/${next.slug}`}
-                      aria-label="Next Component"
-                    >
+                    <Link href={`/projects/${next.slug}`} aria-label="Next Project">
                       <ArrowRightIcon />
                     </Link>
                   </Button>
@@ -216,7 +198,7 @@ export default async function Page({
               />
               <TooltipContent className="pr-2 pl-3">
                 <div className="flex items-center gap-3">
-                  Next Component
+                  Next Project
                   <Kbd>
                     <ArrowRightIcon />
                   </Kbd>
@@ -230,7 +212,8 @@ export default async function Page({
       <div className="screen-line-top screen-line-bottom">
         <div
           className={cn(
-            "h-8 before:absolute before:-left-[100vw] before:-z-1 before:h-full before:w-[200vw]",
+            "h-8",
+            "before:absolute before:-left-[100vw] before:-z-1 before:h-full before:w-[200vw]",
             "before:bg-[repeating-linear-gradient(315deg,var(--pattern-foreground)_0,var(--pattern-foreground)_1px,transparent_0,transparent_50%)] before:bg-size-[10px_10px] before:[--pattern-foreground:var(--color-line)]/56"
           )}
         />
@@ -240,24 +223,6 @@ export default async function Page({
         <h1 className="screen-line-bottom text-3xl font-semibold tracking-tight">
           {doc.metadata.title}
         </h1>
-
-        <a
-          className="not-prose block"
-          href="https://peerlist.io/ncdai/project/chanhdaicom"
-          target="_blank"
-          rel="noopener"
-        >
-          <img
-            className="h-14 w-auto dark:hidden"
-            src="https://peerlist.io/api/v1/projects/embed/PRJH8OEPNRD6QGPB9I7AAMP6LABBA8?showUpvote=true&theme=light"
-            alt="chanhdai.com"
-          />
-          <img
-            className="hidden h-14 w-auto dark:block"
-            src="https://peerlist.io/api/v1/projects/embed/PRJH8OEPNRD6QGPB9I7AAMP6LABBA8?showUpvote=true&theme=dark"
-            alt="chanhdai.com"
-          />
-        </a>
 
         <p className="text-muted-foreground">{doc.metadata.description}</p>
 
@@ -271,4 +236,8 @@ export default async function Page({
       <div className="screen-line-top h-4 w-full" />
     </>
   )
+}
+
+function getDocUrl(doc: Doc) {
+  return `/projects/${doc.slug}`
 }

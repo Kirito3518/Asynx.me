@@ -1,66 +1,47 @@
 import type { User } from "@/features/portfolio/types/user"
 
 export const USER: User = {
-  firstName: "Chánh Đại",
-  lastName: "Nguyễn",
-  displayName: "Chánh Đại",
-  username: "ncdai",
+  firstName: "Asynx",
+  lastName: "",
+  displayName: "Asynx",
+  username: "asynx",
   gender: "male",
   pronouns: "he/him",
-  bio: "Creating with code. Small details matter.",
+  bio: "Building fast, clean, and meaningful web experiences.",
   flipSentences: [
-    "Creating with code. Small details matter.",
-    "Design Engineer",
-    "Open Source Contributor",
+    "Building fast, clean, and meaningful web experiences.",
+    "Frontend Developer",
+    "Creative Technologist",
   ],
-  address: "Ho Chi Minh City, Viet Nam",
-  phoneNumber: "Kzg0Nzc3ODg4MTQ4", // E.164 format, base64 encoded (https://t.io.vn/base64-string-converter)
-  email: "ZGFpQGNoYW5oZGFpLmNvbQ==", // base64 encoded
-  website: "https://chanhdai.com",
-  jobTitle: "Design Engineer",
+  address: "Bangkok, Thailand",
+  phoneNumber: "", // E.164 format, base64 encoded (https://t.io.vn/base64-string-converter)
+  email: "", // base64 encoded
+  website: "https://asynx.dev",
+  jobTitle: "Frontend Developer",
   jobs: [
     {
-      title: "Design Engineer",
-      company: "shadcncraft",
-      website: "https://shadcncraft.com",
-      experienceId: "shadcncraft",
-    },
-    {
       title: "Founder",
-      company: "Quaric",
-      website: "https://quaric.com",
-      experienceId: "quaric",
+      company: "Asynx",
+      website: "https://asynx.dev",
+      experienceId: "asynx",
     },
   ],
   about: `
-- **Design Engineer** with 5+ years of experience, known for pixel-perfect execution and strong attention to small details.
-- Skilled in **Next.js**, **React**, **TypeScript**, and modern front-end technologies; building high-quality, user-centric web and mobile applications.
-- Passionate about exploring new technologies and turning ideas into reality through polished, thoughtfully crafted personal projects.
-- Creator of [ZaDark](https://zadark.com) (2022): enhances the Zalo experience on PC & Web
-  - 80k+ downloads on [SourceForge](https://sourceforge.net/projects/zadark)*
-  - 30k+ active users on the [Chrome Web Store](https://chromewebstore.google.com/detail/llfhpkkeljlgnjgkholeppfnepmjppob)*
-- Creator of [React Wheel Picker](https://react-wheel-picker.chanhdai.com): iOS-like wheel picker with inertia scrolling & infinite loop
-  - 12k+ weekly downloads on [npm](https://www.npmjs.com/package/@ncdai/react-wheel-picker)*
-  - [▲Vercel OSS Program](https://vercel.com/blog/summer-2025-oss-program#react-wheel-picker) summer 2025 cohort
-
-<p class="text-muted-foreground">* Peak metrics recorded; actual current figures may vary.</p>
+- Frontend developer focused on **Next.js**, **React**, and performance-first UI.
+- Building modern interfaces with attention to speed, usability, and consistency.
+- Open to collaboration, freelance opportunities, and product partnerships.
 `,
-  avatar: "https://assets.chanhdai.com/images/chanhdai-avatar-ghibli.webp",
-  ogImage:
-    "https://assets.chanhdai.com/images/screenshot-og-image-dark.png?v=8",
-  namePronunciationUrl: "https://assets.chanhdai.com/audio/chanhdai.mp3",
-  timeZone: "Asia/Ho_Chi_Minh",
+  avatar: "/IMG_9344.JPG",
+  ogImage: "/IMG_9344.JPG",
+  namePronunciationUrl: "",
+  timeZone: "Asia/Bangkok",
   keywords: [
-    "ncdai",
-    "nguyenchanhdai",
-    "nguyen chanh dai",
-    "chanhdai",
-    "chanh dai",
-    "iamncdai",
-    "quaric",
-    "zadark",
-    "nguyễn chánh đại",
-    "chánh đại",
+    "asynx",
+    "asynx profile",
+    "portfolio",
+    "nextjs portfolio",
+    "frontend developer",
+    "creative technologist",
   ],
-  dateCreated: "2023-10-20", // YYYY-MM-DD
+  dateCreated: "2026-04-10", // YYYY-MM-DD
 }

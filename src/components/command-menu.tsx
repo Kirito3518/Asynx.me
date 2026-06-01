@@ -3,27 +3,18 @@
 import { useRouter } from "@bprogress/next/app"
 import { useCommandState } from "cmdk"
 import {
-  AwardIcon,
-  BookmarkIcon,
   BoxIcon,
-  BriefcaseBusinessIcon,
-  CircleCheckBigIcon,
   CornerDownLeftIcon,
   DownloadIcon,
-  FileTextIcon,
   LayersIcon,
   MoonStarIcon,
   MousePointer2Icon,
-  RssIcon,
   SunMediumIcon,
   TextInitialIcon,
-  TriangleDashedIcon,
-  TypeIcon,
 } from "lucide-react"
 import { useTheme } from "next-themes"
-import React, { useCallback, useEffect, useMemo, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { useHotkeys } from "react-hotkeys-hook"
-import { toast } from "sonner"
 
 import {
   CommandDialog,
@@ -34,15 +25,12 @@ import {
   CommandList,
   CommandShortcut,
 } from "@/components/ui/command"
-import type { DocPreview } from "@/features/doc/types/document"
 import { SOCIAL_LINKS } from "@/features/portfolio/data/social-links"
 import { useDuckFollowerVisibility } from "@/hooks/use-duck-follower-visibility"
 import { trackEvent } from "@/lib/events"
-import { copyToClipboardWithEvent } from "@/utils/copy"
 
-import { ChanhDaiMark, getMarkSVG } from "./chanhdai-mark"
-import { getWordmarkSVG } from "./chanhdai-wordmark"
-import { ComponentIcon, Icons } from "./icons"
+import { ChanhDaiMark } from "./chanhdai-mark"
+import { Icons } from "./icons"
 import { Button } from "./ui/button"
 import { Kbd, KbdGroup } from "./ui/kbd"
 import { Separator } from "./ui/separator"
@@ -66,34 +54,10 @@ const MENU_LINKS: CommandLinkItem[] = [
     shortcut: "GH",
   },
   {
-    title: "Components",
-    href: "/components",
-    icon: <Icons.react />,
-    shortcut: "GC",
-  },
-  {
-    title: "Blocks",
-    href: "/blocks",
-    icon: <Icons.gridView />,
-    shortcut: "GB",
-  },
-  {
-    title: "Blog",
-    href: "/blog",
+    title: "Projects",
+    href: "/projects",
     icon: <Icons.news />,
-    shortcut: "GL",
-  },
-  {
-    title: "Sponsors",
-    href: "/sponsors",
-    icon: <Icons.favourite />,
-    shortcut: "GS",
-  },
-  {
-    title: "Wall of Love",
-    href: "/wall-of-love",
-    icon: <Icons.bookHeart />,
-    shortcut: "GW",
+    shortcut: "GP",
   },
 ]
 
@@ -109,29 +73,9 @@ const PORTFOLIO_LINKS: CommandLinkItem[] = [
     icon: <LayersIcon />,
   },
   {
-    title: "Experience",
-    href: "/#experience",
-    icon: <BriefcaseBusinessIcon />,
-  },
-  {
     title: "Projects",
     href: "/#projects",
     icon: <BoxIcon />,
-  },
-  {
-    title: "Honors & Awards",
-    href: "/#awards",
-    icon: <AwardIcon />,
-  },
-  {
-    title: "Certifications",
-    href: "/#certs",
-    icon: <CircleCheckBigIcon />,
-  },
-  {
-    title: "Bookmarks",
-    href: "/#bookmarks",
-    icon: <BookmarkIcon />,
   },
   {
     title: "Download vCard",
@@ -147,38 +91,16 @@ const SOCIAL_LINK_ITEMS: CommandLinkItem[] = SOCIAL_LINKS.map((item) => ({
   openInNewTab: true,
 }))
 
-const OTHER_LINK_ITEMS: CommandLinkItem[] = [
-  {
-    title: "llms.txt",
-    href: "/llms.txt",
-    icon: <FileTextIcon />,
-    openInNewTab: true,
-  },
-  {
-    title: "RSS Feed",
-    href: "/rss",
-    icon: <RssIcon />,
-    openInNewTab: true,
-  },
-]
-
-type BlockItem = {
-  name: string
-  description: string
-}
-
 export function CommandMenu({
-  docs,
-  blocks,
   enabledHotkeys = false,
 }: {
-  docs: DocPreview[]
-  blocks: BlockItem[]
+  docs?: unknown
+  blocks?: unknown
   enabledHotkeys?: boolean
 }) {
   const router = useRouter()
 
-  const { setTheme, resolvedTheme } = useTheme()
+  const { setTheme } = useTheme()
 
   const [open, setOpen] = useState(false)
 
@@ -227,18 +149,6 @@ export function CommandMenu({
     [router]
   )
 
-  const handleCopyText = useCallback((text: string, message: string) => {
-    setOpen(false)
-    copyToClipboardWithEvent(text, {
-      name: "command_menu_action",
-      properties: {
-        action: "copy",
-        text: text,
-      },
-    })
-    toast.success(message)
-  }, [])
-
   const createThemeHandler = useCallback(
     (theme: "light" | "dark" | "system") => () => {
       setOpen(false)
@@ -267,33 +177,6 @@ export function CommandMenu({
       },
     })
   }, [setIsDuckFollowerVisible])
-
-  const { componentLinks, blogLinks } = useMemo(
-    () => ({
-      componentLinks: docs
-        .filter((doc) => doc.category === "components")
-        .sort((a, b) =>
-          a.title.localeCompare(b.title, "en", {
-            sensitivity: "base",
-          })
-        )
-        .map(docToCommandLinkItem),
-      blogLinks: docs
-        .filter((doc) => doc.category !== "components")
-        .map(docToCommandLinkItem),
-    }),
-    [docs]
-  )
-
-  const blockLinks = useMemo(
-    () =>
-      blocks.map((block) => ({
-        title: block.name,
-        href: `/blocks#${block.name}`,
-        keywords: ["block"],
-      })),
-    [blocks]
-  )
 
   return (
     <>
@@ -328,71 +211,10 @@ export function CommandMenu({
           />
 
           <CommandLinkGroup
-            heading="Components"
-            links={componentLinks}
-            fallbackIcon={<Icons.react />}
-            onLinkSelect={handleOpenLink}
-          />
-
-          <CommandLinkGroup
-            heading="Blocks"
-            links={blockLinks}
-            fallbackIcon={<Icons.gridView />}
-            onLinkSelect={handleOpenLink}
-          />
-
-          <CommandLinkGroup
-            heading="Blog"
-            links={blogLinks}
-            fallbackIcon={<Icons.news />}
-            onLinkSelect={handleOpenLink}
-          />
-
-          <CommandLinkGroup
             heading="Social Links"
             links={SOCIAL_LINK_ITEMS}
             onLinkSelect={handleOpenLink}
           />
-
-          <CommandGroup heading="Brand Assets">
-            <CommandItem
-              onSelect={() => {
-                handleCopyText(
-                  getMarkSVG(resolvedTheme === "light" ? "#000" : "#fff"),
-                  "Mark as SVG copied"
-                )
-              }}
-            >
-              <ChanhDaiMark />
-              Copy Mark as SVG
-            </CommandItem>
-
-            <CommandItem
-              onSelect={() => {
-                handleCopyText(
-                  getWordmarkSVG(resolvedTheme === "light" ? "#000" : "#fff"),
-                  "Logotype as SVG copied"
-                )
-              }}
-            >
-              <TypeIcon />
-              Copy Logotype as SVG
-            </CommandItem>
-
-            <CommandItem
-              onSelect={() => handleOpenLink("/blog/chanhdai-brand")}
-            >
-              <TriangleDashedIcon />
-              Brand Guidelines
-            </CommandItem>
-
-            <CommandItem asChild>
-              <a href="https://assets.chanhdai.com/chanhdai-brand.zip" download>
-                <DownloadIcon />
-                Download Brand Assets
-              </a>
-            </CommandItem>
-          </CommandGroup>
 
           <CommandGroup heading="Theme">
             <CommandItem
@@ -425,11 +247,6 @@ export function CommandMenu({
             </CommandItem>
           </CommandGroup>
 
-          <CommandLinkGroup
-            heading="Other"
-            links={OTHER_LINK_ITEMS}
-            onLinkSelect={handleOpenLink}
-          />
         </CommandList>
 
         <CommandMenuFooter />
@@ -610,15 +427,4 @@ function CommandMenuFooter() {
       </div>
     </>
   )
-}
-
-function docToCommandLinkItem(doc: DocPreview): CommandLinkItem {
-  const isComponent = doc.category === "components"
-
-  return {
-    title: doc.title,
-    href: isComponent ? `/components/${doc.slug}` : `/blog/${doc.slug}`,
-    keywords: isComponent ? ["component"] : undefined,
-    icon: isComponent ? <ComponentIcon variant={doc.slug} /> : undefined,
-  }
 }

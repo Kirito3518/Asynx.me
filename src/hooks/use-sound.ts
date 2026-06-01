@@ -110,6 +110,9 @@ export function useSound(url: string) {
 
     // Mark as loading in cache
     audioCache.set(url, { buffer: null!, loading: loadingPromise })
+
+    // Prevent unhandled promise rejection warnings for background preloads.
+    void loadingPromise.catch(() => {})
   }, [url])
 
   const play = useCallback((volume: number = 1) => {

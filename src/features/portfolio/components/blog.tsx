@@ -1,47 +1,37 @@
 import { ArrowRightIcon } from "lucide-react"
 import Link from "next/link"
 
-import { Button } from "@/components/base/ui/button"
-import { PostItem } from "@/features/blog/components/post-item"
-import { getAllDocs } from "@/features/doc/data/documents"
-
+import { PROJECTS } from "../data/projects"
 import { Panel, PanelHeader, PanelTitle, PanelTitleSup } from "./panel"
+import { ProjectCard } from "./projects/project-card"
 
 export function Blog() {
-  const allPosts = getAllDocs()
-
   return (
-    <Panel id="blog">
-      <PanelHeader>
-        <PanelTitle>
-          Blog
-          <PanelTitleSup>({allPosts.length})</PanelTitleSup>
-        </PanelTitle>
+    <Panel id="projects">
+      <PanelHeader className="flex items-end justify-between gap-4 pb-3">
+        <div>
+          <PanelTitle>
+            Projects
+            <PanelTitleSup>({PROJECTS.length})</PanelTitleSup>
+          </PanelTitle>
+          <p className="mt-2 font-mono text-xs text-muted-foreground">
+            A selection of things I have built.
+          </p>
+        </div>
+
+        <Link
+          className="flex shrink-0 items-center gap-1 pb-0.5 font-mono text-xs text-muted-foreground transition-colors hover:text-foreground"
+          href="/projects"
+        >
+          View all
+          <ArrowRightIcon className="size-3.5" />
+        </Link>
       </PanelHeader>
 
-      <div className="relative py-4">
-        <div className="pointer-events-none absolute inset-0 -z-1 grid grid-cols-1 gap-4 max-sm:hidden sm:grid-cols-2">
-          <div className="border-r border-line"></div>
-          <div className="border-l border-line"></div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {allPosts.slice(0, 4).map((post) => (
-            <PostItem key={post.slug} post={post} />
-          ))}
-        </div>
-      </div>
-
-      <div className="screen-line-top flex justify-center py-2">
-        <Button
-          className="gap-2 border-none pr-2.5 pl-3"
-          size="sm"
-          nativeButton={false}
-          render={<Link href="/blog" />}
-        >
-          All Posts
-          <ArrowRightIcon />
-        </Button>
+      <div className="grid grid-cols-1 gap-3 p-4 sm:grid-cols-2">
+        {PROJECTS.slice(0, 4).map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
       </div>
     </Panel>
   )

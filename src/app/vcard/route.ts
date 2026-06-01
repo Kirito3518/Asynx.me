@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import sharp from "sharp"
 import VCard from "vcard-creator"
 
+import { SITE_INFO } from "@/config/site"
 import { USER } from "@/features/portfolio/data/user"
 import { decodeEmail, decodePhoneNumber } from "@/utils/string"
 
@@ -12,14 +13,19 @@ export const dynamicParams = false
 export async function GET() {
   const card = new VCard()
 
-  card
-    .addName(USER.lastName, USER.firstName)
-    .addPhoneNumber(decodePhoneNumber(USER.phoneNumber))
-    .addAddress(USER.address)
-    .addEmail(decodeEmail(USER.email))
-    .addURL(USER.website)
+  card.addName(USER.lastName, USER.firstName).addAddress(USER.address)
 
-  const photo = await getVCardPhoto(USER.avatar)
+  if (USER.phoneNumber) {
+    card.addPhoneNumber(decodePhoneNumber(USER.phoneNumber))
+  }
+
+  if (USER.email) {
+    card.addEmail(decodeEmail(USER.email))
+  }
+
+  card.addURL(USER.website)
+
+  const photo = await getVCardPhoto(new URL(USER.avatar, SITE_INFO.url).toString())
   if (photo) {
     card.addPhoto(photo.image, photo.mime)
   }

@@ -1,30 +1,30 @@
 {
-  "name": "chanhdai.com",
+  "name": "asynx.me",
   "version": "0.1.0",
   "description": "A minimal, pixel-perfect dev portfolio, shadcn registry, and blog.",
-  "homepage": "https://chanhdai.com",
+  "homepage": "https://asynx.dev",
   "license": "MIT",
   "author": {
-    "name": "Nguyen Chanh Dai",
-    "email": "dai@chanhdai.com",
-    "url": "https://github.com/ncdai"
+    "name": "Asynx",
+    "email": "hello@asynx.dev",
+    "url": "https://github.com/Kirito3518"
   },
   "contributors": [
     {
-      "name": "Nguyen Chanh Dai",
-      "email": "dai@chanhdai.com",
-      "url": "https://github.com/ncdai"
+      "name": "Asynx",
+      "email": "hello@asynx.dev",
+      "url": "https://github.com/Kirito3518"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ncdai/chanhdai.com.git"
+    "url": "git+https://github.com/Kirito3518/Asynx.me.git"
   },
   "scripts": {
-    "dev": "portless ncdai next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "preview": "next build && portless ncdai next start",
+    "preview": "next build && next start",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "check-types": "tsc --noEmit --pretty",
