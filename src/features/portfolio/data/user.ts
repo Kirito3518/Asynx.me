@@ -7,28 +7,35 @@ export const USER: User = {
   username: "asynx",
   gender: "male",
   pronouns: "he/him",
-  bio: "Building fast, clean, and meaningful web experiences.",
+  bio: "Building scalable full-stack applications with modern web technologies.",
   flipSentences: [
-    "Building fast, clean, and meaningful web experiences.",
-    "Frontend Developer",
-    "Creative Technologist",
+    "Building scalable full-stack applications.",
+    "Full Stack Developer",
+    "Creating products from frontend to backend.",
   ],
-  address: "Bangkok, Thailand",
-  phoneNumber: "", // E.164 format, base64 encoded (https://t.io.vn/base64-string-converter)
+  address: "Nakhon Ratchasima, Thailand",
+  phoneNumber: "", // E.164 format, base64 encoded
   email: "", // base64 encoded
-  website: "https://asynx.dev",
-  jobTitle: "Frontend Developer",
+  website: "https://asynx.me",
+  jobTitle: "Full Stack Developer",
   jobs: [
     {
-      title: "Founder",
-      company: "Asynx",
-      website: "https://asynx.dev",
-      experienceId: "asynx",
+      title: "Full Stack Developer",
+      company: "0JAYSHOP",
+      website: "https://0jay-shop.com",
+      experienceId: "0JAYSHOP",
+    },
+    {
+      title: "Full Stack Developer",
+      company: "JameShop",
+      website: "https://jameshop.cloud",
+      experienceId: "JameShop",
     },
   ],
   about: `
-- Frontend developer focused on **Next.js**, **React**, and performance-first UI.
-- Building modern interfaces with attention to speed, usability, and consistency.
+- Full Stack Developer specializing in **Next.js**, **React**, **TypeScript**, **Node.js**, and **PostgreSQL**.
+- Building scalable web applications from frontend interfaces to backend APIs and databases.
+- Passionate about clean architecture, performance optimization, and great user experiences.
 - Open to collaboration, freelance opportunities, and product partnerships.
 `,
   avatar: "/IMG_9344.JPG",
@@ -39,9 +46,14 @@ export const USER: User = {
     "asynx",
     "asynx profile",
     "portfolio",
-    "nextjs portfolio",
-    "frontend developer",
-    "creative technologist",
+    "full stack developer",
+    "nextjs",
+    "react",
+    "typescript",
+    "node.js",
+    "supabase",
+    "postgresql",
+    "web developer",
   ],
-  dateCreated: "2026-04-10", // YYYY-MM-DD
+  dateCreated: "2026-04-10",
 }

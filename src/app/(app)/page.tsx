@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import type { ProfilePage as PageSchema, WithContext } from "schema-dts"
 
-import { About } from "@/features/portfolio/components/about"
 import { Blog } from "@/features/portfolio/components/blog"
 import { GitHubContributions } from "@/features/portfolio/components/github-contributions"
 import { Overview } from "@/features/portfolio/components/overview"
@@ -36,9 +35,6 @@ export default function Page() {
         <Overview />
         <SocialLinks />
         <Separator />
-
-        <About />
-        <div className="flex h-2 w-full border-x border-line" />
 
         <GitHubContributions />
         <Separator />

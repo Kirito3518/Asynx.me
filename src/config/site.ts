@@ -3,7 +3,7 @@ import type { NavItem } from "@/types/nav"
 
 export const SITE_INFO = {
   name: USER.displayName,
-  url: process.env.APP_URL || "https://asynx.dev",
+  url: process.env.APP_URL || "https://asynx.me",
   ogImage: USER.ogImage,
   description: USER.bio,
   keywords: USER.keywords,
@@ -37,5 +37,5 @@ export const SOURCE_CODE_GITHUB_URL = "https://github.com/Kirito3518/Asynx.me"
 export const SPONSORSHIP_URL = "https://github.com/sponsors/Kirito3518"
 
 export const UTM_PARAMS = {
-  utm_source: "asynx.dev",
+  utm_source: "asynx.me",
 }

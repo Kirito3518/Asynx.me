@@ -22,6 +22,8 @@ export type Project = {
   skills: string[]
   /** Optional rich description; Markdown and line breaks supported. */
   description?: string
+  /** Optional project preview image URL (absolute or path under /public). */
+  image?: string
   /** Logo image URL (absolute or path under /public). */
   logo?: string
   /** Whether the project card is expanded by default in the UI. */

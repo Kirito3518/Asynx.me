@@ -5,7 +5,6 @@ import { useCommandState } from "cmdk"
 import {
   BoxIcon,
   CornerDownLeftIcon,
-  DownloadIcon,
   LayersIcon,
   MoonStarIcon,
   MousePointer2Icon,
@@ -76,11 +75,6 @@ const PORTFOLIO_LINKS: CommandLinkItem[] = [
     title: "Projects",
     href: "/#projects",
     icon: <BoxIcon />,
-  },
-  {
-    title: "Download vCard",
-    href: "/vcard",
-    icon: <DownloadIcon />,
   },
 ]
 
@@ -246,7 +240,6 @@ export function CommandMenu({
               Toggle Duck Follower
             </CommandItem>
           </CommandGroup>
-
         </CommandList>
 
         <CommandMenuFooter />
@@ -366,8 +359,6 @@ type CommandMetaMap = Map<
 
 function buildCommandMetaMap() {
   const commandMetaMap: CommandMetaMap = new Map()
-
-  commandMetaMap.set("Download vCard", { commandKind: "command" })
 
   commandMetaMap.set("Light", { commandKind: "command" })
   commandMetaMap.set("Dark", { commandKind: "command" })

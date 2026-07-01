@@ -2,17 +2,17 @@
   "name": "asynx.me",
   "version": "0.1.0",
   "description": "A minimal, pixel-perfect dev portfolio, shadcn registry, and blog.",
-  "homepage": "https://asynx.dev",
+  "homepage": "https://asynx.me",
   "license": "MIT",
   "author": {
     "name": "Asynx",
-    "email": "hello@asynx.dev",
+    "email": "hello@asynx.me",
     "url": "https://github.com/Kirito3518"
   },
   "contributors": [
     {
       "name": "Asynx",
-      "email": "hello@asynx.dev",
+      "email": "hello@asynx.me",
       "url": "https://github.com/Kirito3518"
     }
   ],
@@ -79,7 +79,6 @@
     "sharp": "^0.34.3",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
-    "vcard-creator": "^0.7.2",
     "web-haptics": "^0.0.6",
     "zod": "^3.25.76"
   },

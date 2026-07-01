@@ -19,7 +19,6 @@ A minimal, pixel-perfect dev portfolio, shadcn registry, and blog to showcase my
 
 - Clean & modern design
 - Light/Dark themes
-- vCard integration
 - SEO optimized ([JSON-LD schema](https://json-ld.org), sitemap, robots)
 - AI-ready with [/llms.txt](https://llmstxt.org)
 - Spam-protected email
