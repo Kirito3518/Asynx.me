@@ -38,8 +38,8 @@ export const USER: User = {
 - Passionate about clean architecture, performance optimization, and great user experiences.
 - Open to collaboration, freelance opportunities, and product partnerships.
 `,
-  avatar: "/IMG_9344.JPG",
-  ogImage: "/IMG_9344.JPG",
+  avatar: "/profile.png",
+  ogImage: "/profile.png",
   namePronunciationUrl: "",
   timeZone: "Asia/Bangkok",
   keywords: [
